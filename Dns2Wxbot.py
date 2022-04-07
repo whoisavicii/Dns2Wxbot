@@ -42,5 +42,11 @@ def send_to_wx(domain,dns_result):
     time.sleep(3)
 
 if __name__ == '__main__':
-    dns_result = dns_request(domain)
-    send_to_wx(domain,dns_result)
+    domain_list = read_domain_list()
+    for domain in domain_list:
+        domain = domain.strip()
+        dns_result = dns_request(domain)
+        if dns_result:
+            send_to_wx(domain,dns_result)
+        else:
+            print('解析失败')
